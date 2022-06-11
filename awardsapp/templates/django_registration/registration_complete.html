@@ -1,0 +1,12 @@
+{%extends "django_registration/base.html"%}
+{% load bootstrap3 %}
+{% block content %}
+<div class="container">
+    <h1 class="text-center" style="margin-top:100px;">Registration Complete</h1>
+    <p class="text-center" style="margin-top:30px; font-size:20px;">Account Created Successfully</p>
+    <div class="text-center">
+        <a class='btn btn-primary' href="/accounts/login">Login</a>
+    </div>
+</div>
+
+{% endblock %}
