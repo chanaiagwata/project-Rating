@@ -2,5 +2,5 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-def welcome(request):
-    return HttpResponse('welcome to Wards Apps')
+def index(request):
+    return render(request, 'index.html')
