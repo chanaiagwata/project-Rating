@@ -11,7 +11,7 @@ class Profile(models.Model):
     def __str__(self):
         return self.user
 
-class Project(models.Model):
+class Post(models.Model):
     title = models.CharField(max_length=200)
     pic = models.ImageField(upload_to = 'posts/', blank=False)
     description = models.TextField(max_length=255)
@@ -40,7 +40,7 @@ class Rating(models.Model):
     content = models.IntegerField(choices=rating, blank=True)
     score = models.FloatField(default=0, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    post = models.ForeignKey(Project, on_delete=models.CASCADE, null=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
     
     def __str__(self):
         return {self.user}
