@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h4 style="color:#337AB7;">Update Photo</h4>
+
+            <img src="{{user.profile.profile_pic.url}}" alt="Image" class="img-fluid">
+            
+            <br>
+            <br>
+            <form action="{% url 'update' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+              
+                {% bootstrap_form form layout='inline'%}
+                <input type="submit" class="btn-sm btn-outline-primary" value="Update">
+            </form>
+            <div class="bio-textfield">
+                <p>{{user.profile.bio}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
