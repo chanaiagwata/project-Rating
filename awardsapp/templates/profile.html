@@ -8,7 +8,7 @@
         <div class="col-md-4 col-sm-2">
             {% if user.profile.profile_pic.url %}
 
-                <span style="border-radius:50%;"><img src="{{user.profile.profile_pic.url}}" alt="Image" width="100" height="100"  class="img-fluid"></span>
+                <span><img src="{{user.profile.profile_pic.url}}" alt="Image" width="100" height="100"   style="border-radius:50%;" class="img-fluid"></span>
                 {% else %}
                 <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -21,7 +21,10 @@
                 <div style="margin-top:30px;">
                     <p>{{user.profile.bio}}</p>
                 </div>
-                <h4 style="margin-top:40px;">Username: {{user.username}}</h4>
+                <p class="btn btn-primary btn-sm">
+                    <a style="color:white;" href="{%url 'update' %}">Update Profile</a>
+                </p>
+
 
             
 
@@ -29,16 +32,5 @@
 
     </div>
 </div>
-    <div class="container">
-         <div style="width:100%;background:grey; height:70px;">
-            <ul style="list-style: none; width:100%; display:flex; flex-direction:row; justify-content:center;padding-top:17px; font-family:sans serif;font-weight:bold;">
-                <li style="margin-right:50px; text-align:center;">
-                    <a style="color:white;" href="{%url 'indexpage' %}">Home</a>
-                </li>
-                <li style="text-align:center;">
-                    <a style="color:white;" href="{%url 'update' %}">Update Profile</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+
 {% endblock %}
