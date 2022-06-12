@@ -34,3 +34,18 @@ def profile(request):
         posts_form = PostForm
         
     return render(request,'profile.html', {'details_form':details_form, 'posts_form':posts_form, 'posts':posts,})
+
+def update_profile(request):
+    current_user = request.user
+    if request.method== 'POST':
+        form = DetailsForm(request.POST, request.FILES)
+        if form.is_valid():
+            Profile.objects.filter(id=current_user.profile.id).update(bio=form.cleaned_data["bio"])
+            profile = Profile.objects.filter(id=current_user.profile.id).first()
+            profile.profile_pic.delete()
+            profile.profile_pic=form.cleaned_data["profile_pic"]
+            profile.save()
+        return redirect('profile')
+    else:
+        form = DetailsForm()
+    return render(request, 'update_profile.html', {"form":form})

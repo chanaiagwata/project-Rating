@@ -4,7 +4,7 @@ from django import forms
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ['profile']
+        exclude = ['profile','posted_at']
         
 class DetailsForm(forms.ModelForm):
     class Meta:
