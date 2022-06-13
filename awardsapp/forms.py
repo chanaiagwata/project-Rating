@@ -17,7 +17,7 @@ class PostForm(forms.ModelForm):
     
     class Meta:
         model = Post
-        exclude = ['user','posted_at']
+        fields = ('pic', 'title', 'description', 'url')   
         
 class RatingsFrom(forms.ModelForm):
     class Meta:

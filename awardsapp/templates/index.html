@@ -1,10 +1,107 @@
 {% extends 'base.html' %}
-{% load bootstrap3 %}
 
 {% block content %}
+{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+
 {{block.super}}
 <div class="container">
-  
+    <div class="row">
+        <div class="col-md-6;">
+            <img class="card-img" src="https://placeimg.com/800/400/nature/grayscale" alt="Card image" style="max-height: 100%; max-width: 100vh; margin:auto;">
+            <button class="btn btn-success btn-sm" id="site" data-toggle="modal" data-target=".bd-example-modal-xl">
+                Submit your Project
+            </button>  
+
+        </div>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-md-8">
+            <div class="card card-inverse">
+                
+                <div class="card-img-overlay">
+                    <h4 class="card-title">{{post.title}}</h4>
+                    <h5>Posted by:{{post.user.username}}</h5>
+                    <small class="text-muted">Posted {{post.posted_at|timesince}} ago</small>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    {% for rating in post.ratings.all %}
+                    {% if forloop.counter is post.ratings.all.count %}
+                    <div>
+                        <p>Design: <span>{{ rating.design_average}}</span></p>
+                        <p>Usability: <span>{{ rating.usability_average }}</span></p>
+                        <p>Content: <span>{{ rating.content_average }}</span></p>
+                    </div>
+                    <div>
+                        Score: {{rating.total_average_score}}
+                    </div>
+                    
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="box-bl">
+                    <a href="{{random_post.url}}" data-identifier="" data-type="submission" class="js-visit-item bt-default red-fill" target="_blank" rel="noopener nofollow">View Site</a>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h3>Rated Projects</h3>
+
+    {% if user.is_authenticated %}
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-xl" id="ModalCenter" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Upload a project</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                         <input type="submit" class="btn btn-sm btn-info" value="Save"/>
+                        <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">Close
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        {% if posts %}
+        {% for post in posts %}
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{{post.pic.cdn_url}}" alt="Card image cap">
+                <div class="card-body">
+                    <a href="{%url 'project' post.title %}"><h5 class="card-title">{{post.title|title}}</h5></a>
+                  <a href="{{post.url}}" class="btn btn-primary">View</a>
+                  <br>
+                  <p class="card-text"><img src="{{post.user.profile.profile_pic.url}}" class="nav-img mr-2" alt="">Posted by: {{post.user.username|title}}, {{post.posted_at|timesince}} ago</p>
+                </div>
+              </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+
 </div>
 
+
 {%endblock%}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
