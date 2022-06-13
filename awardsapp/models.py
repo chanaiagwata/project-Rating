@@ -12,7 +12,8 @@ class Profile(models.Model):
         return self.user
 
 class Post(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=255)
+    url = models.URLField(max_length=255)
     pic = models.ImageField(upload_to = 'posts/', blank=False)
     description = models.TextField(max_length=255)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
