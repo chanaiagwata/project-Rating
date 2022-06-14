@@ -1,25 +1,18 @@
-from pyexpat import model
 from .models import Profile, Post, Rating
 from django import forms
 
 
-class PostForm(forms.ModelForm):
+class UploadPostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ['profile','posted_at']
+        exclude = ['profile','user']
         
 class DetailsForm(forms.ModelForm):
     class Meta:
         model = Profile
         exclude = ['user']
-class PostForm(forms.ModelForm):
-    project_pic= forms.ImageField(label='')
-    
-    class Meta:
-        model = Post
-        fields = ('pic', 'title', 'description', 'url')   
         
-class RatingsFrom(forms.ModelForm):
+class RatingsForm(forms.ModelForm):
     class Meta:
         model = Rating
         exclude = ['score','user','post']

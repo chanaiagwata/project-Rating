@@ -3,11 +3,25 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Post, Rating
 from django.contrib.auth.models import User
-from .forms import DetailsForm, PostForm, RatingsFrom
+from .forms import DetailsForm, UploadPostForm, RatingsForm
+
 
 # Create your views here.
 def index(request):
-    return render(request, 'index.html')
+    if request.method=="POST":
+        form = UploadPostForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user= request.user
+            post.save()
+    else:
+        form=UploadPostForm()
+        
+    try:
+        posts = Post.objects.all()
+    except Post.DoesNotExist:
+        posts = None
+    return render(request, 'index.html',{'form':form,'posts':posts})
 
 def profile(request):
     posts = Post.objects.all()
@@ -15,7 +29,7 @@ def profile(request):
     
     if request.method=='POST':
         details_form = DetailsForm(request.POST, request.FILES)
-        posts_form = PostForm(request.POST, request.FILES)
+        posts_form = UploadPostForm(request.POST, request.FILES)
         
         if details_form.is_valid():
             profile = details_form.save(commit=False)
@@ -31,7 +45,7 @@ def profile(request):
         
     else:
         details_form = DetailsForm
-        posts_form = PostForm
+        posts_form = UploadPostForm
         
     return render(request,'profile.html', {'details_form':details_form, 'posts_form':posts_form, 'posts':posts,})
 
@@ -59,7 +73,7 @@ def project(request, post):
     #     rating_status = True
         
     if request.method == 'POST':
-        form = RatingsFrom(request.POST)
+        form = RatingsForm(request.POST)
         if form.is_valid():
             rate = form.save(commit=False)
             rate.user = request.user
@@ -87,7 +101,7 @@ def project(request, post):
             
             return HttpResponseRedirect(request.path_info)
         else:
-            form = RatingsFrom()
+            form = RatingsForm()
         elements = {
             'post':post,
             'rating_form':form,

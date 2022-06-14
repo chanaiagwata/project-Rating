@@ -11,6 +11,27 @@ class Profile(models.Model):
     def __str__(self):
         return self.user
 
+    @classmethod
+    def filter_by_id(cls, id):
+        profile = Profile.objects.filter(user = id).first()
+        return profile
+
+    @classmethod
+    def get_by_id(cls, id):
+        profile = Profile.objects.get(user = id)
+        return profile
+
+    @classmethod
+    def search_profile(cls, name):
+        profile = Profile.objects.filter(user__username__icontains = name)
+        return profile
+
+    def delete_profile(self):
+         self.delete()
+
+    def save_profile(self):
+        self.save()
+
 class Post(models.Model):
     title = models.CharField(max_length=255)
     url = models.URLField(max_length=255)
@@ -22,19 +43,16 @@ class Post(models.Model):
 
     def __str__(self):
         return {self.title}
+
+    def save_project(self):
+        self.save()
+
+    def delete_project(self):
+        self.delete()
     
 class Rating(models.Model):
     rating = (
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (5, '5'),
-        (6, '6'),
-        (7, '7'),
-        (8, '8'),
-        (9, '9'),
-        (10, '10'),
+        (1, '1'),(2, '2'),(3, '3'),(4, '4'),(5, '5'),(6, '6'),(7, '7'),(8, '8'),(9, '9'),(10, '10'),
     )
     design = models.IntegerField(choices=rating, blank=True)
     usability = models.IntegerField(choices=rating, blank=True)
