@@ -5,7 +5,7 @@ from django import forms
 class UploadPostForm(forms.ModelForm):
     class Meta:
         model = Post
-        exclude = ['profile','user']
+        exclude = ['profile']
         
 class DetailsForm(forms.ModelForm):
     class Meta:

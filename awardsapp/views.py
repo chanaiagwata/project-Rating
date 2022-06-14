@@ -8,19 +8,45 @@ from .forms import DetailsForm, UploadPostForm, RatingsForm
 
 # Create your views here.
 def index(request):
+    posts = Post.objects.all()
+    current_user = request.user
+    
     if request.method=="POST":
-        form = UploadPostForm(request.POST)
+        form = UploadPostForm(request.POST, request.FILES)
+        
         if form.is_valid():
+            
             post = form.save(commit=False)
-            post.user= request.user
-            post.save()
+          
+            form.save()
+            
+            # post = form.save(commit=False)
+            # post.user= request.user
+            # post.save()
+     
+
+            
+            # design = form.cleaned_data['design']
+            # usability = form.cleaned_data['usability']
+            # content = form.cleaned_data['content']
+            
+            # post = form.save(commit=False)
+
+            # post.project = posts
+            # post.name = current_user
+            # post.design = design
+            # post.usability = usability
+            # post.content = content
+            # post.save()
+
+        return redirect('indexpage')
     else:
         form=UploadPostForm()
         
-    try:
-        posts = Post.objects.all()
-    except Post.DoesNotExist:
-        posts = None
+    # try:
+    #     posts = Post.objects.all()
+    # except Post.DoesNotExist:
+    #     posts = None
     return render(request, 'index.html',{'form':form,'posts':posts})
 
 def profile(request):
@@ -106,5 +132,5 @@ def project(request, post):
             'post':post,
             'rating_form':form,
         }
-        return render(request, 'posts.html', elements)
+        return render(request, 'project.html', elements)
             

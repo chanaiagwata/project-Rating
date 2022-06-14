@@ -83,11 +83,10 @@
         {% for post in posts %}
         <div class="col-md-4">
             <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{post.pic.cdn_url}}" alt="Card image cap">
+                <img class="card-img-top" src="{{post.pic.cdn_url}}" alt="">
                 <div class="card-body">
                     <a href="{%url 'project' post.title %}"><h5 class="card-title">{{post.title|title}}</h5></a>
                   <a href="{{post.url}}" class="btn btn-primary">View</a>
-                  <br>
                   <p class="card-text"><img src="{{post.user.profile.profile_pic.url}}" class="nav-img mr-2" alt="">Posted by: {{post.user.username|title}}, {{post.posted_at|timesince}} ago</p>
                 </div>
               </div>

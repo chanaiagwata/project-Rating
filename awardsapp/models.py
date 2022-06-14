@@ -44,11 +44,15 @@ class Post(models.Model):
     def __str__(self):
         return {self.title}
 
-    def save_project(self):
+    def save_post(self):
         self.save()
 
-    def delete_project(self):
+    def delete_post(self):
         self.delete()
+    
+    @classmethod
+    def all_posts(cls):
+        return cls.objects.all()
     
 class Rating(models.Model):
     rating = (
