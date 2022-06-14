@@ -81,13 +81,20 @@
     <div class="row">
         {% if posts %}
         {% for post in posts %}
-        <div class="col-md-4">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="{{post.pic.cdn_url}}" alt="">
+        <div class="col-md-4 col-lg-6">
+            <div class="card" style="width:; box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9); border-radius: 10px; padding:10px; margin-bottom:15px;">
+
+                
                 <div class="card-body">
-                    <a href="{%url 'project' post.title %}"><h5 class="card-title">{{post.title|title}}</h5></a>
-                  <a href="{{post.url}}" class="btn btn-primary">View</a>
-                  <p class="card-text"><img src="{{post.user.profile.profile_pic.url}}" class="nav-img mr-2" alt="">Posted by: {{post.user.username|title}}, {{post.posted_at|timesince}} ago</p>
+                    <div  style=""
+                        <img class="card-img-top" src="{{post.pic.cdn_url}}"  width="200" height="200" alt="">
+                    </div>
+                    <a href="{%url 'project' post.title %}"><h5 class="card-title"><Span style="font-size:16px;font-family:sans serif; font-weight:bold;color:black;">Project Title: </Span><span style="color:black; font-family:sans serif;">{{post.title|title}}</span></h5></a>
+                    
+                    <p class="card-text"><img src="{{post.user.profile.profile_pic.url}}" class="nav-img mr-2" alt=""></p>
+                    <br>
+                    <p style="font-family:sans serif;font-size:18px;">Posted by: {{post.user.username|title}}, {{post.posted_at|timesince}} ago</p>
+                    <a href="{{post.url}}" class="btn btn-primary">View</a>
                 </div>
               </div>
         </div>
