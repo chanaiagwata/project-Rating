@@ -17,36 +17,11 @@ def index(request):
         if form.is_valid():
             
             post = form.save(commit=False)
-          
             form.save()
-            
-            # post = form.save(commit=False)
-            # post.user= request.user
-            # post.save()
-     
-
-            
-            # design = form.cleaned_data['design']
-            # usability = form.cleaned_data['usability']
-            # content = form.cleaned_data['content']
-            
-            # post = form.save(commit=False)
-
-            # post.project = posts
-            # post.name = current_user
-            # post.design = design
-            # post.usability = usability
-            # post.content = content
-            # post.save()
-
         return redirect('indexpage')
     else:
         form=UploadPostForm()
         
-    # try:
-    #     posts = Post.objects.all()
-    # except Post.DoesNotExist:
-    #     posts = None
     return render(request, 'index.html',{'form':form,'posts':posts})
 
 def profile(request):
@@ -93,11 +68,7 @@ def update_profile(request):
 def project(request, post):
     post = Post.objects.get(title=post)
     rating = Rating.objects.filter(user=request.user, post=post).first()
-    # if rating is None:
-    #     rating_status = False
-    # else:
-    #     rating_status = True
-        
+      
     if request.method == 'POST':
         form = RatingsForm(request.POST)
         if form.is_valid():
