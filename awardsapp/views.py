@@ -112,4 +112,14 @@ def project(request, post):
             'rating_form':form,
         }
         return render(request, 'project.html', elements)
-            
+@login_required
+def search_results(request):
+    if 'title' in request.GET and request.GET["title"]:
+        search_term = request.GET.get("title")
+        searched_project = Post.search_by_posts(search_term)
+        message = search_term
+
+        return render(request,'awwards/search.html',{"message":message,"searched_project":searched_project})
+    else:
+        message = "You haven't searched for any project"
+        return render(request,'search.html',{"message":message})

@@ -55,6 +55,11 @@ class Post(models.Model):
     def all_posts(cls):
         return cls.objects.all()
     
+    @classmethod
+    def search_by_posts(cls, search_term):
+        projects = cls.objects.filter(title__icontains=search_term)
+        return projects
+
 class Rating(models.Model):
     rating = (
         (1, '1'),(2, '2'),(3, '3'),(4, '4'),(5, '5'),(6, '6'),(7, '7'),(8, '8'),(9, '9'),(10, '10'),
@@ -71,3 +76,4 @@ class Rating(models.Model):
     
     def __str__(self):
         return {self.user}
+    
