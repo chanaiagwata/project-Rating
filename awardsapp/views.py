@@ -4,12 +4,12 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile, Post, Rating
 from django.contrib.auth.models import User
 from .forms import DetailsForm, UploadPostForm, RatingsForm
-
+import random
 
 # Create your views here.
 def index(request):
     posts = Post.objects.all()
-    current_user = request.user
+    # current_user = request.user
     
     if request.method=="POST":
         form = UploadPostForm(request.POST, request.FILES)
@@ -22,7 +22,15 @@ def index(request):
     else:
         form=UploadPostForm()
         
-    return render(request, 'index.html',{'form':form,'posts':posts})
+    try:
+        posts = posts[::-1]
+        single_post = random.randint(0, len(posts)-1)
+        random_post = posts[single_post]
+        
+    except Post.DoesNotExist:
+        posts = None
+        
+    return render(request, 'index.html',{'form':form,'posts':posts, 'random_post':random_post})
 
 def profile(request):
     posts = Post.objects.all()
