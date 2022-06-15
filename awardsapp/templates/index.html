@@ -36,11 +36,11 @@
                 <div class="row">
                     <div class="col">
                         <div style="display:flex; flex-direction:row; justify-content:center;margin-top:150px;">
-                            <div class="card" style="width: 40rem;box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9); border-radius: 10px;padding:15px;">
+                            <div class="card" style="width: 40rem;box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9); border-radius: 10px;padding:15px; color:white;">
                                 <h5 class="card-title" style="color:black; font-family:sans serif;font-size:18px;">Title: {{random_post.title}}</h5>
                                 <img class="" src="{{random_post.pic.url}}"  width="250" height="250" alt="">
                                 <div class="card-body"> 
-                                
+                                <p style="margin-top:20px;font-size:18px;">Rating: <span style="color:#9950AE; margin-right:20px;">Design:</span><span style="color:#ED5D3E; margin-right:20px;">Usability:</span><span style="color:#F7BC6F; margin-right:20px;">Content:</span></p>
                                 <p style="color:black; font-family:sans serif;font-size:14px;">{{random_post.description}}</p>
                                 <p style="color:black; font-family:sans serif;font-size:18px;">Technologies: {{random_post.technologies}}</p>
                                 <h5>Posted by:{{random_post.user.username}}</h5>
