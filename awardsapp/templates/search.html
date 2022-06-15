@@ -15,9 +15,9 @@
     <div class="row">
          {% if searched_project %}
             {% for post in searched_project %}
-            <div class="shadow p-3 mb-4 bg-body rounded-top border-top border-2 border-secondary" style="border-radius:10px;">
+            <div class="shadow p-3 mb-4 bg-body rounded-top border-top" style="border-radius:10px;">
               <div class="card-header">
-                <h2 class="card-title text-center"><a style="text-decoration:none;" href="{{ post.link }}" target="_blank">{{post.title}}</a></h2>
+                <h2 class="card-title text-center"><a style="text-decoration:none;">{{post.title}}</a></h2>
 
               </div>
               <hr> <br>
