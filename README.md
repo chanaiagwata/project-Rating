@@ -2,13 +2,13 @@
 ## By Chanai Agwata
 ### (MS School Project)
 
-* [Overall Description](https://github.com/chanaiagwata/Instagram-Clone#overall-project-description)
+* [Overall Description](https://github.com/chanaiagwata/project-Rating/tree/master#overall-project-description)
 
-* [Setup Instructions](https://github.com/chanaiagwata/Instagram-Clone#setup-instructions)
+* [Setup Instructions](https://github.com/chanaiagwata/project-Rating#setup-instructions)
 
-* [License](https://github.com/chanaiagwata/Instagram-Clone#license)
+* [License](https://github.com/chanaiagwata/project-Rating#license)
 
-* [Author's Info](https://github.com/chanaiagwata/Instagram-Clone#authors-info)
+* [Author's Info](https://github.com/chanaiagwata/project-Rating#authors-info)
 
 ## Overall Project Description
 <p>This is an application that allows a user to post a project he/she has created and get it reviewed by his/her peers.</p>
