@@ -1,10 +1,14 @@
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Post, Rating
 from django.contrib.auth.models import User
 from .forms import DetailsForm, UploadPostForm, RatingsForm
 import random
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer, PostSerializer
+from rest_framework.response import Response
+from rest_framework import status
 
 # Create your views here.
 def index(request):
@@ -32,6 +36,7 @@ def index(request):
         
     return render(request, 'index.html',{'form':form,'posts':posts, 'random_post':random_post})
 
+@login_required
 def profile(request):
     posts = Post.objects.all()
     current_user = request.user 
@@ -58,6 +63,7 @@ def profile(request):
         
     return render(request,'profile.html', {'details_form':details_form, 'posts_form':posts_form, 'posts':posts,})
 
+@login_required
 def update_profile(request):
     current_user = request.user
     if request.method== 'POST':
@@ -73,6 +79,7 @@ def update_profile(request):
         form = DetailsForm()
     return render(request, 'update_profile.html', {"form":form})
 
+@login_required
 def project(request, post):
     post = Post.objects.get(title=post)
     rating = Rating.objects.filter(user=request.user, post=post).first()
@@ -119,7 +126,36 @@ def search_results(request):
         searched_project = Post.search_by_posts(search_term)
         message = search_term
 
-        return render(request,'awwards/search.html',{"message":message,"searched_project":searched_project})
+        return render(request,'search.html',{"message":message,"searched_project":searched_project})
     else:
-        message = "You haven't searched for any project"
+        message = "You haven't searched for any post"
         return render(request,'search.html',{"message":message})
+
+
+class ProfileList(APIView):
+
+    def get(self, request, format=None):
+        all_profiles = Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
+        return Response(serializers.data)
+        
+    def post(self, request, format=None):
+        serializers = ProfileSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class PostList(APIView):
+
+    def get(self, request, format=None):
+        all_projects = Post.objects.all()
+        serializers = PostSerializer(all_projects, many=True)
+        return Response(serializers.data)
+    
+    def post(self, request, format=None):
+        serializers = PostSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+            return Response(serializers.data, status=status.HTTP_201_CREATED)
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
