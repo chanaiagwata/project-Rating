@@ -30,7 +30,7 @@
 * Upload a post.
 * Rate a project.
 
-![screenshot]()
+![screenshot](https://raw.githubusercontent.com/chanaiagwata/MediaFiles/master/Media/awards.png)
 ### Languages and Frameworks
 * HTML
 * CSS
